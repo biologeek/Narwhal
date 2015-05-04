@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="WEB-INF/templates/common.xhtml">
+
+	<ui:define name="content">
+		<p:panel>
+			<h:form>
+				<p:panelGrid columns="5">
+					<p:outputLabel for="de" value="De :"></p:outputLabel>
+					<p:calendar id="de" value="#{operationBean.begin}" showOn="button"></p:calendar>
+					<p:outputLabel for="a" value="à :"></p:outputLabel>
+					<p:calendar id="a" value="#{operationBean.end}" showOn="button"></p:calendar>
+
+
+					<p:commandButton
+						action="#{operationBean.getOperationsFromDateToDate}"
+						value="Afficher"></p:commandButton>
+				</p:panelGrid>
+			</h:form>
+		</p:panel>
+
+		<p:panel>
+			<p:dataTable var="#{op}" value="#{operationBean.operations}">
+				<p:column headerText="Montant"
+					styleClass="#{op.isABuying ? 'greenOp' : 'redOp'}">
+					<h:outputText value="#{op.amount}"></h:outputText>
+				</p:column>
+				
+				<p:column headerText="Date"
+					styleClass="#{op.isABuying ? 'greenOp' : 'redOp'}">
+					<h:outputText value="#{op.date}">
+					<f:convertDateTime pattern="dd/mm/yy"></f:convertDateTime>
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Categorie"
+					styleClass="#{op.isABuying ? 'greenOp' : 'redOp'}">
+					<h:outputText value="#{op.category.label}"></h:outputText>
+				</p:column>
+				
+				<p:column headerText="Sous-catégorie"
+					styleClass="#{op.isABuying ? 'greenOp' : 'redOp'}">
+					<h:outputText value="#{op.subCategory.label}"></h:outputText>
+				</p:column>
+				
+				<p:column headerText="Commentaire"
+					styleClass="#{op.isABuying ? 'greenOp' : 'redOp'}">
+					<h:outputText value="#{op.label}"></h:outputText>
+				</p:column>
+				
+			</p:dataTable>
+		</p:panel>
+	</ui:define>
+</ui:composition>
+</html>
