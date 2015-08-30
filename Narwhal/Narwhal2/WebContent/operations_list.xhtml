@@ -1,0 +1,101 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="WEB-INF/templates/common.xhtml">
+
+	<ui:define name="content">
+		<h:form id="searchDateForm">
+			<p:panelGrid columns="5" style="width:100%;">
+				<p:outputLabel for="de" value="De :"></p:outputLabel>
+				<p:calendar id="de" value="#{operationBean.begin}" showOn="button"></p:calendar>
+				<p:outputLabel for="a" value="à :"></p:outputLabel>
+				<p:calendar id="a" value="#{operationBean.end}" showOn="button"></p:calendar>
+
+
+				<p:commandButton
+					actionListener="#{operationBean.getOperationsFromDateToDate()}"
+					value="Afficher" update="#{operationsTable}"></p:commandButton>
+			</p:panelGrid>
+		</h:form>
+		<h:form>
+			<p:panelGrid columns="6">
+
+				<p:outputLabel value="#{operation.date}"></p:outputLabel>
+				
+				<p:outputLabel value="Opération"></p:outputLabel>
+				<h:inputText value="#{addOperation.operation.label}"></h:inputText>
+				
+				<p:outputLabel value="Recette"></p:outputLabel>
+				<p:selectBooleanCheckbox value="#{addOperation.operation.isABuying}"></p:selectBooleanCheckbox>
+				
+				
+				<p:outputLabel value="Catégorie"></p:outputLabel>
+				<p:selectOneMenu id="catMenu"
+					value="#{addOperation.operation.category}">
+					<f:selectItems value="#{addOperation.getCategoriesFromDB()}"
+						var="op" itemValue="#{op.categoryId}" itemLabel="#{op.label}"></f:selectItems>
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Sous Catégorie"></p:outputLabel>
+				<p:selectOneMenu id="subCatMenu"
+					value="#{addOperation.operation.subCategory}">
+					<f:selectItems value="#{addOperation.getSubCategoriesFromDB()}"
+						var="sub" itemValue="#{sub.categoryId}" itemLabel="#{sub.label}"></f:selectItems>
+				</p:selectOneMenu>
+				
+				<p:commandButton icon=""></p:commandButton>
+			</p:panelGrid>
+			<p:panel id="tableList" style="width:100%;">
+				<p:dataTable value="#{operationBean.getOperationsFromDateToDate()}"
+					id="operationsTable" var="op" paginatorAlwaysVisible="true"
+					lazy="true" rows="5">
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Date"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{op.date}">
+							<f:convertDateTime pattern="dd/mm/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Montant"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{op.amount}  €"></h:outputText>
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Catégorie"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{op.category.label}"></h:outputText>
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Sous catégorie"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{op.subCategory.label}"></h:outputText>
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Commentaire"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{op.label}"></h:outputText>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="WEB-INF/templates/common.xhtml">
+
+	<ui:define name="content">
+		<h:form id="operationForm" >
+			<h:inputHidden id="id" value="#{addOperation.operation.operationId}"></h:inputHidden>
+			<p:panelGrid columns="2" style="width:350px;">
+			
+				<p:outputLabel value="Date"></p:outputLabel>
+				<p:calendar id="date" value="#{addOperation.operation.date}" showOn="button"></p:calendar>
+				
+				<p:outputLabel value="Opération"></p:outputLabel>
+				<h:inputText value="#{addOperation.operation.label}"></h:inputText>
+				
+				<p:outputLabel value="Recette"></p:outputLabel>
+				<p:selectBooleanCheckbox value="#{addOperation.operation.isABuying}"></p:selectBooleanCheckbox>
+				
+				<p:outputLabel value="Catégorie"></p:outputLabel>
+				<p:selectOneMenu id="catMenu" value="#{addOperation.operation.category}" >
+					<f:selectItems value="#{addOperation.getCategoriesFromDB()}" var="op" itemValue="#{op.categoryId}" itemLabel="#{op.label}"></f:selectItems>
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Sous Catégorie"></p:outputLabel>
+				<p:selectOneMenu id="subCatMenu" value="#{addOperation.operation.subCategory}">
+					<f:selectItems value="#{addOperation.getSubCategoriesFromDB()}" var="sub" itemValue="#{sub.categoryId}" itemLabel="#{sub.label}"></f:selectItems>
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Compte"></p:outputLabel>
+				<p:selectOneMenu id="compteMenu" value="#{addOperation.operation.compte}">
+					<f:selectItems value="#{addOperation.getAccoutsFromDB()}" var="acc" itemValue="#{acc.compteId}" itemLabel="#{sub.label}"></f:selectItems>
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Imposable ?"></p:outputLabel>
+				<p:selectBooleanCheckbox value="#{addOperation.operation.imposable}"></p:selectBooleanCheckbox>
+				
+				<p:outputLabel></p:outputLabel>
+				<p:commandButton value="Enregistrer" action="#{addOperation.save()}"></p:commandButton>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>
