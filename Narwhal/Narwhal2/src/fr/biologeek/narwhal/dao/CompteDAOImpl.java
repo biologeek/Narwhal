@@ -32,7 +32,7 @@ public class CompteDAOImpl implements ISpecificCompteDAO {
 	@Override
 	public List<Compte> getComptesByUtilisateur(Utilisateur user) {
 		// TODO Auto-generated method stub 
-		return (List<Compte>) sessionFactory.getCurrentSession().createQuery("from Compte c where c.utilisateurId = "+user.getId()+"").list();
+		return (List<Compte>) sessionFactory.getCurrentSession().createQuery("from Compte c where c.utilisateur_id = "+user.getUtilisateur_id()+"").list();
 	}
 
 }

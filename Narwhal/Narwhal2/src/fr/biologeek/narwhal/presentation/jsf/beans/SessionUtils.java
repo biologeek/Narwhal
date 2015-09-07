@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 public class SessionUtils {
 	
+	public static int defaultUserId = 1;
+	
 	private static HttpServletRequest request;
 	private static FacesContext ctx;
 	private static ExternalContext ectx;

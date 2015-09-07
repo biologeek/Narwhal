@@ -56,14 +56,22 @@ public class CategoryDAOImpl implements GenericDAO<Category>, ISpecificCategoryD
 	@Override
 	public List<Category> getCategories() {
 		
-		return (List<Category>) sessionFactory.getCurrentSession().createQuery("from Category as c where c.parent=0").list();
+		return (List<Category>) sessionFactory.getCurrentSession().createQuery("from Category as c where c.category_parent=NULL").list();
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Category> getSubCategories(Category parent) {
+		// TODO Auto-generated method stub
+		return (List<Category>) sessionFactory.getCurrentSession().createQuery("from Category as c where c.category_parent ="+parent).list();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Category> getSubCategories() {
-		return (List<Category>) sessionFactory.getCurrentSession().createQuery("from Category as c where c.parent != 0").list();
-
+	public List<Category> getSubCategories(Integer parent) {
+		// TODO Auto-generated method stub
+		return (List<Category>) sessionFactory.getCurrentSession().createSQLQuery("select * from Category as c where c.category_parent ="+parent).list();
 	}
 
 }

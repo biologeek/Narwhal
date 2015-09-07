@@ -15,7 +15,6 @@ import javax.persistence.InheritanceType;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorValue(value="financialoperation")
 @ManagedBean
 @Component
@@ -27,31 +26,22 @@ public class FinancialOperation extends Operation implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 7968945605084018869L;
-	private boolean imposable;
-
-
-	public boolean isImposable() {
-		return imposable;
-	}
-
-
-	public void setImposable(boolean imposable) {
-		this.imposable = imposable;
-	}
-
-
+	private boolean operation_imposable;
+	
+	
 	public FinancialOperation() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	@Override
-	public String toString() {
-		return "FinancialOperation [operationId=" + operationId + ", isABuying="
-				+ isABuying + ", date=" + date + ", label=" + label
-				+ ", compte=" + compte + "amount=" + amount + ", imposable="
-				+ imposable + ", category="+category+", subcategory="+subCategory+"]";
+	public boolean isOperation_imposable() {
+		return operation_imposable;
 	}
+	public void setOperation_imposable(boolean operation_imposable) {
+		this.operation_imposable = operation_imposable;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 
 }

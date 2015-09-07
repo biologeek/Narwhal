@@ -33,106 +33,132 @@ public class Operation implements Serializable{
 	private static final long serialVersionUID = -1806447681556092920L;
 	//Every operation is referenced by a unique id
 	@Id@GeneratedValue(strategy=GenerationType.IDENTITY)
-	protected int operationId;
+	protected int operation_id;
 	//Either a buying (true) or a selling (false)
-	protected boolean isABuying;
+	protected boolean operation_isABuying;
 	//Date of the operation
-	protected Date date;
+	protected Date operation_date;
 	//Label of operation
-	protected String label;
+	protected String operation_label;
 	
-	protected double amount;
+	protected double operation_amount;
 	
 	// The parent account of the operation 
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="compteId")
-	protected Compte compte;
+	@JoinColumn(name="compte_id")
+	protected Compte operation_compte;
 
 	@ManyToOne (fetch=FetchType.LAZY)
-	@JoinColumn(name="categoryId")
-	protected Category category;
+	
+	protected Category operation_category;
 	
 	// Sub category
 	@ManyToOne (fetch=FetchType.LAZY)
-	@JoinColumn(name="subCategoryId")
-	protected Category subCategory;
+	@JoinColumn(name="category_id")
+	protected Category operation_subCategory;
 	
 	
 	public Operation() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public int getOperationId() {
-		return operationId;
-	}
 
-	public void setOperationId(int operationId) {
-		this.operationId = operationId;
-	}
-
-	public boolean getIsABuying() {
-		return isABuying;
-	}
-	
-	public double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
-
-	public void setABuying(boolean isABuying) {
-		this.isABuying = isABuying;
-	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	public String getLabel() {
-		return label;
-	}
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
-	public Compte getCompte() {
-		return compte;
-	}
-
-
-	public void setCompte(Compte compte) {
-		this.compte = compte;
-	}
-
-
-	public Category getCategory() {
-		return category;
-	}
-
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-
-	public Category getSubCategory() {
-		return subCategory;
-	}
-
-
-	public void setSubCategory(Category subCategory) {
-		this.subCategory = subCategory;
-	}
 
 	@Override
 	public String toString() {
-		return "Operation [operationId=" + operationId + ", isABuying="
-				+ isABuying + ", date=" + date + ", label=" + label
-				+ ", compte=" + compte + ", category=" + category
-				+ ", subCategory=" + subCategory + "]";
+		return "Operation [operation_id=" + operation_id
+				+ ", operation_isABuying=" + operation_isABuying
+				+ ", operation_date=" + operation_date + ", operation_label="
+				+ operation_label + ", operation_amount=" + operation_amount
+				+ ", operation_compte=" + operation_compte
+				+ ", operation_category=" + operation_category
+				+ ", operation_subCategory=" + operation_subCategory + "]";
 	}
+
+
+	public int getOperation_id() {
+		return operation_id;
+	}
+
+
+	public void setOperation_id(int operation_id) {
+		this.operation_id = operation_id;
+	}
+
+
+	public boolean isOperation_isABuying() {
+		return operation_isABuying;
+	}
+
+
+	public void setOperation_isABuying(boolean operation_isABuying) {
+		this.operation_isABuying = operation_isABuying;
+	}
+
+
+	public Date getOperation_date() {
+		return operation_date;
+	}
+
+
+	public void setOperation_date(Date operation_date) {
+		this.operation_date = operation_date;
+	}
+
+
+	public String getOperation_label() {
+		return operation_label;
+	}
+
+
+	public void setOperation_label(String operation_label) {
+		this.operation_label = operation_label;
+	}
+
+
+	public double getOperation_amount() {
+		return operation_amount;
+	}
+
+
+	public void setOperation_amount(double operation_amount) {
+		this.operation_amount = operation_amount;
+	}
+
+
+	public Compte getOperation_compte() {
+		return operation_compte;
+	}
+
+
+	public void setOperation_compte(Compte operation_compte) {
+		this.operation_compte = operation_compte;
+	}
+
+
+	public Category getOperation_category() {
+		return operation_category;
+	}
+
+
+	public void setOperation_category(Category operation_category) {
+		this.operation_category = operation_category;
+	}
+
+
+	public Category getOperation_subCategory() {
+		return operation_subCategory;
+	}
+
+
+	public void setOperation_subCategory(Category operation_subCategory) {
+		this.operation_subCategory = operation_subCategory;
+	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
 }

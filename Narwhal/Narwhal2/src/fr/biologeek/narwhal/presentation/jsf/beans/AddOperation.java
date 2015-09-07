@@ -22,7 +22,6 @@ import fr.biologeek.narwhal.business.service.ISpecificCompteDAO;
 
 @ManagedBean(name="addOperation")
 @Controller
-@SessionScoped
 public class AddOperation implements Serializable{
 
 	

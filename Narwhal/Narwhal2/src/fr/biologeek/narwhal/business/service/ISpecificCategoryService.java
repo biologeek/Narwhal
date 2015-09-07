@@ -8,7 +8,8 @@ public interface ISpecificCategoryService {
 	
 	
 	public List<Category> getCategories ();
-	public List<Category> getSubCategories ();
+	public List<Category> getSubCategories (Category parent);
+	public List<Category> getSubCategories (Integer parent);
 	
 
 }

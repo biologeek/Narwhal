@@ -84,7 +84,14 @@ public class CategoryService  implements CoreGenericCRUD<Category>, ISpecificCat
 	}
 
 	@Override
-	public List<Category> getSubCategories() {
-		return specDAO.getSubCategories();
+	public List<Category> getSubCategories(Category parent) {
+		// TODO Auto-generated method stub
+		return specDAO.getSubCategories(parent);
+	}
+
+	@Override
+	public List<Category> getSubCategories(Integer parent) {
+		// TODO Auto-generated method stub
+		return specDAO.getSubCategories(parent);
 	}
 }

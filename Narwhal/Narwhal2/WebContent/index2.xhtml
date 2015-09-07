@@ -14,11 +14,11 @@
 			<h:form id="connectionForm">
 				<h:panelGrid columns="2">
 					<h:outputText value="Login"></h:outputText>
-					<h:inputText value="#{accueil.utilisateur.login}"></h:inputText>
+					<h:inputText value="#{accueil.utilisateur.utilisateur_login}"></h:inputText>
 
 					<h:outputText value="Mot de passe"></h:outputText>
 
-					<h:inputSecret value="#{accueil.utilisateur.password}"></h:inputSecret>
+					<h:inputSecret value="#{accueil.utilisateur.utilisateur_password}"></h:inputSecret>
 
 					<h:commandButton action="#{accueil.checkConnection}"
 						value="Connexion"></h:commandButton>

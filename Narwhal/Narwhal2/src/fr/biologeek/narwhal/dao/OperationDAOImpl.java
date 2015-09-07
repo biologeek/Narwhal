@@ -69,7 +69,7 @@ public class OperationDAOImpl implements GenericDAO<FinancialOperation>, ISpecif
 		List<FinancialOperation> obj = new ArrayList<FinancialOperation>();
 		Session s = sessionFactory.getCurrentSession();
 		
-		obj =  (List<FinancialOperation>) s.createQuery("from Operation where date <= '"+(new java.sql.Date(end.getTime()))+"' and date >= '"+(new java.sql.Date(begin.getTime()))+"'").list();
+		obj =  (List<FinancialOperation>) s.createQuery("from Operation where operation_date <= '"+(new java.sql.Date(end.getTime()))+"' and operation_date >= '"+(new java.sql.Date(begin.getTime()))+"'").list();
 		System.out.println("TTTTTTT : "+obj);
 
 		return obj;
@@ -79,7 +79,7 @@ public class OperationDAOImpl implements GenericDAO<FinancialOperation>, ISpecif
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<FinancialOperation> readByCompte(Compte compte) throws DAOReadException {
-		return (List<FinancialOperation>) sessionFactory.getCurrentSession().createQuery("from Operation where compte = "+compte);
+		return (List<FinancialOperation>) sessionFactory.getCurrentSession().createQuery("from Operation where operation_compte = "+compte);
 
 	}
 

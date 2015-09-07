@@ -11,8 +11,50 @@
 <ui:composition template="WEB-INF/templates/common.xhtml">
 
 	<ui:define name="content">
-		<h:form id="searchDateForm">
-			<p:panelGrid columns="5" style="width:100%;">
+		<h:form id="addOperationForm">
+			<p:panelGrid columns="2" rows="5">
+				<f:facet name="header">
+					<h:messages></h:messages>
+				</f:facet>
+				
+				<p:outputLabel value="Date"></p:outputLabel>
+				<h:outputText value="#{operationBean.today}">
+					<f:convertDateTime pattern="dd/mm/yyyy" />
+				</h:outputText>
+				
+				
+				<p:outputLabel value="Opération"></p:outputLabel>
+				<h:inputText value="#{operationBean.operationToAdd.operation_label}"></h:inputText>
+				
+				<p:outputLabel value="Recette"></p:outputLabel>
+				<p:selectBooleanCheckbox value="#{operationBean.operationToAdd.operation_isABuying}"></p:selectBooleanCheckbox>
+				
+				
+				<p:outputLabel value="Catégorie"></p:outputLabel>
+				<p:selectOneMenu id="catMenu"
+					value="#{operationBean.operationToAdd.operation_category}">
+					<f:selectItems value="#{operationBean.getCategoriesFromDB()}"
+						var="cat" itemValue="#{cat}" itemLabel="#{cat.category_label}"></f:selectItems>
+				</p:selectOneMenu>
+
+
+				<p:outputLabel value="Sous Catégorie"></p:outputLabel>
+				<p:selectOneMenu id="subCatMenu"
+					value="#{operationBean.operationToAdd.operation_subCategory}">
+					<f:selectItems value="#{operationBean.getSubCategoriesFromDB()}"
+						var="sub" itemValue="#{sub}" itemLabel="#{sub.category_label}"></f:selectItems>
+				</p:selectOneMenu>
+				
+				
+				<f:facet name="footer">
+					<h:commandButton id="ajouter" actionListener="#{operationBean.addOrUpdateOperation}"
+					value="Ajouter"></h:commandButton>
+				</f:facet>
+			</p:panelGrid>
+		</h:form>
+		
+			<h:form id="searchDateForm">
+			<p:panelGrid columns="5" rows="1" style="width:100%;">
 				<p:outputLabel for="de" value="De :"></p:outputLabel>
 				<p:calendar id="de" value="#{operationBean.begin}" showOn="button"></p:calendar>
 				<p:outputLabel for="a" value="à :"></p:outputLabel>
@@ -23,35 +65,6 @@
 					actionListener="#{operationBean.getOperationsFromDateToDate()}"
 					value="Afficher" update="#{operationsTable}"></p:commandButton>
 			</p:panelGrid>
-		</h:form>
-		<h:form>
-			<p:panelGrid columns="6">
-
-				<p:outputLabel value="#{operation.date}"></p:outputLabel>
-				
-				<p:outputLabel value="Opération"></p:outputLabel>
-				<h:inputText value="#{addOperation.operation.label}"></h:inputText>
-				
-				<p:outputLabel value="Recette"></p:outputLabel>
-				<p:selectBooleanCheckbox value="#{addOperation.operation.isABuying}"></p:selectBooleanCheckbox>
-				
-				
-				<p:outputLabel value="Catégorie"></p:outputLabel>
-				<p:selectOneMenu id="catMenu"
-					value="#{addOperation.operation.category}">
-					<f:selectItems value="#{addOperation.getCategoriesFromDB()}"
-						var="op" itemValue="#{op.categoryId}" itemLabel="#{op.label}"></f:selectItems>
-				</p:selectOneMenu>
-
-				<p:outputLabel value="Sous Catégorie"></p:outputLabel>
-				<p:selectOneMenu id="subCatMenu"
-					value="#{addOperation.operation.subCategory}">
-					<f:selectItems value="#{addOperation.getSubCategoriesFromDB()}"
-						var="sub" itemValue="#{sub.categoryId}" itemLabel="#{sub.label}"></f:selectItems>
-				</p:selectOneMenu>
-				
-				<p:commandButton icon=""></p:commandButton>
-			</p:panelGrid>
 			<p:panel id="tableList" style="width:100%;">
 				<p:dataTable value="#{operationBean.getOperationsFromDateToDate()}"
 					id="operationsTable" var="op" paginatorAlwaysVisible="true"
@@ -61,7 +74,7 @@
 						<f:facet name="header">
 							<h:outputText value="Date"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{op.date}">
+						<h:outputText value="#{op.operation_date}">
 							<f:convertDateTime pattern="dd/mm/yyyy" />
 						</h:outputText>
 					</p:column>
@@ -70,28 +83,28 @@
 						<f:facet name="header">
 							<h:outputText value="Montant"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{op.amount}  €"></h:outputText>
+						<h:outputText value="#{op.operation_amount}">  €</h:outputText>
 					</p:column>
 
 					<p:column>
 						<f:facet name="header">
 							<h:outputText value="Catégorie"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{op.category.label}"></h:outputText>
+						<h:outputText value="#{op.operation_category.category_label}"></h:outputText>
 					</p:column>
 
 					<p:column>
 						<f:facet name="header">
 							<h:outputText value="Sous catégorie"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{op.subCategory.label}"></h:outputText>
+						<h:outputText value="#{op.operation_subCategory.category_label}"></h:outputText>
 					</p:column>
 
 					<p:column>
 						<f:facet name="header">
 							<h:outputText value="Commentaire"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{op.label}"></h:outputText>
+						<h:outputText value="#{op.operation_label}"></h:outputText>
 					</p:column>
 				</p:dataTable>
 			</p:panel>

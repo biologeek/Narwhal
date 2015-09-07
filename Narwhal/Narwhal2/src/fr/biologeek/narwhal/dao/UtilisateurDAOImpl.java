@@ -34,7 +34,7 @@ public class UtilisateurDAOImpl implements  ISpecificUtilisateurDAO, GenericDAO<
 	}
 	@Override
 	public Utilisateur checkConnection(Utilisateur utilisateur) {
-		String query = "from Utilisateur where login='"+utilisateur.getLogin()+"' and password='"+utilisateur.getPassword()+"'";
+		String query = "from Utilisateur where utilisateur_login='"+utilisateur.getUtilisateur_login()+"' and utilisateur_password='"+utilisateur.getUtilisateur_password()+"'";
 		return (Utilisateur) sessionFactory.getCurrentSession().createQuery(query).uniqueResult();
 	}
 

@@ -4,19 +4,16 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.CascadeType;
 import org.springframework.stereotype.Component;
 
 @Entity
@@ -25,52 +22,69 @@ import org.springframework.stereotype.Component;
 public class Category implements Serializable {
 	
 	@Id@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int categoryId;
-	private String label;
-	private String description;
-	private int parent;
+	private Integer category_id;
+	private String category_label;
+	private String category_description;
 
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="operationId")
-	private List<Operation> operations;
+	@ManyToOne
+	private Category category_parent;
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="category_parent")
+	private List<Category> category_children;
+
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="operation_category")
+	private List<Operation> category_operations;
+
+	public Integer getCategory_id() {
+		return category_id;
+	}
+
+	public Category getCategory_parent() {
+		return category_parent;
+	}
+
+	public void setCategory_parent(Category category_parent) {
+		this.category_parent = category_parent;
+	}
+
+	public void setCategory_id(Integer category_id) {
+		this.category_id = category_id;
+	}
+
+	public String getCategory_label() {
+		return category_label;
+	}
+
+	public void setCategory_label(String category_label) {
+		this.category_label = category_label;
+	}
+
+	public String getCategory_description() {
+		return category_description;
+	}
+
+	public void setCategory_description(String category_description) {
+		this.category_description = category_description;
+	}
+
+
+
+	public List<Category> getCategory_children() {
+		return category_children;
+	}
+
+	public void setCategory_children(List<Category> category_children) {
+		this.category_children = category_children;
+	}
+
+	public List<Operation> getCategory_operations() {
+		return category_operations;
+	}
+
+	public void setCategory_operations(List<Operation> category_operations) {
+		this.category_operations = category_operations;
+	}
 	
 	
-	@Override
-	public String toString() {
-		return "Category [categoryId=" + categoryId + ", label=" + label
-				+ ", description=" + description + ", parent=" + parent
-				+ "]";
-	}
-
-	public int getParent() {
-		return parent;
-	}
-
-	public void setParent(int parent) {
-		this.parent = parent;
-	}
-
-
-	public Category() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public int getCategoryId() {
-		return categoryId;
-	}
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
-	}
-	public String getLabel() {
-		return label;
-	}
-	public void setLabel(String label) {
-		this.label = label;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	
 }
